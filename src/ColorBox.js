@@ -3,10 +3,19 @@ import './ColorBox.css';
 
 
 export default function ColorBox(props) {
+    const { backGround, name } = props;
     return (
-        <div style={{ backgroundColor: `${props.backGround}`}} className="ColorBox" >
-            <span>{props.name}</span>
-            <span>more</span>
+        <div style={{ backgroundColor: `${backGround}` }} className="ColorBox" >
+            <div className="ColorTop"></div>
+            <div className="ColorCenter">
+                <button>COPY</button>
+            </div>
+            <div className="ColorBottom">
+                <span>{name}</span>
+                <span className="MoreBtn">MORE</span>
+            </div>
+
+
         </div>
     )
 }
