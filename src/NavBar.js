@@ -5,10 +5,12 @@ import './NavBar.css';
 export default function NavBar(props) {
     function selectClicker (e){
         props.select(e);
+        props.update()
 
     };
     function sliderClicker (e){
         props.slider(e);
+        props.update()
 
     }
     
@@ -42,9 +44,9 @@ export default function NavBar(props) {
                             value={props.type}
                             onChange={selectClicker}
                         >
-                            <MenuItem value="HEX">{props.type=='HEX'?`HEX ${props.color}`:"HEX"}</MenuItem>
-                            <MenuItem value="RGB">{props.type=='RGB'?`RGB ${props.color}`:"RGB"}</MenuItem>
-                            <MenuItem value="RGBA">{props.type=='RGBA'?`RGBA ${props.color}`:"RGBA"}</MenuItem>
+                            <MenuItem value="HEX">{props.type=='HEX'&&props.type!==""?`HEX ${props.color}`:"HEX"}</MenuItem>
+                            <MenuItem value="RGB">{props.type=='RGB'&&props.type!==""?`RGB ${props.color}`:"RGB"}</MenuItem>
+                            <MenuItem value="RGBA">{props.type=='RGBA'&&props.type!==""?`RGBA ${props.color}`:"RGBA"}</MenuItem>
                         </Select>
                     </FormControl>
                 </div>
