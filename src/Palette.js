@@ -3,36 +3,60 @@ import { v4 as uuid } from 'uuid';
 import ColorBox from './ColorBox';
 import NavBar from './NavBar';
 import convert from 'color-convert';
-
+import chroma from "chroma-js";
 import './Palette.css';
 
 export default function Pallete(props) {
-    const [Colors, SetColors] = useState(props.colors);
+    const ColorsArray = props.colors
+    const [Colors, SetColors] = useState(ColorsArray);
     const [SelectedColor, setSelectedColor] = useState("");
     const [TypeColor, setTypeColor] = useState("HEX");
-    const [level, setLevel] = useState("600");
-    const colorBox = Colors.map(color => <ColorBox key={uuid()} backGround={color.color} name={color.name} type={TypeColor} level={level} getColor={getColorName} />);
+    const [Level, setLevel] = useState("600");
+    const colorBox = Colors.map(color => <ColorBox key={uuid()} backGround={convertColor(color.color,TypeColor,Level)} name={color.name} selected={updateSelectedColor} />);
+
+    function updateColor() {
+        const newColors = ColorsArray.map(color => {
+            const scale = chroma.scale([chroma(color.color).darken(0.1).hex(), chroma(color.color).darken(1.5).hex()]);
+            const finalColor = scale(Level / 1000).hex();
+            return { ...color, color: finalColor };
+        });
+        SetColors(newColors);
+    }
+
+    function updateSelectedColor(color) {
+        setSelectedColor(color)
+    }
 
     function handleChangeSelect(e) {
         setTypeColor(e.target.value);
+        setSelectedColor("");
     };
     function handleChangeSlider(e) {
         setLevel(e.target.value);
+        setSelectedColor("");
     }
 
-    function getColorName(color) {
-        setSelectedColor(color);
-        console.log(color)
-    }
 
-    function changeLevel(color, level) {
-        const orginalColor = convert.hex.rgb(color);
-        return `rgba(${orginalColor[0]},${orginalColor[1]},${orginalColor[2]},${level / 1000})`
-    }
 
+    function convertColor(hex, exitType, level) {
+        if (hex !== "") {
+            const color = convert.hex.rgb(hex);
+            if (exitType == "RGB") {
+                return `rgb(${color[0]},${color[1]},${color[2]})`
+            } else if (exitType == "RGBA") {
+                return `rgba(${color[0]},${color[1]},${color[2]},1)`
+            } else {
+                return hex
+            }
+        }else{
+            return ""
+        }
+
+
+    }
     return (
         <div className="Palette">
-            <NavBar select={handleChangeSelect} slider={handleChangeSlider} type={TypeColor} level={level} color={SelectedColor} />
+            <NavBar select={handleChangeSelect} slider={handleChangeSlider} type={TypeColor} level={Level} color={SelectedColor} update={updateColor} />
             {/* navbar goes here */}
             <div className="PaletteColors">
                 {/*bunch of color boxes*/}
