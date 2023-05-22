@@ -41,9 +41,9 @@ export default function Pallete(props) {
     function convertColor(hex, exitType, level) {
         if (hex !== "") {
             const color = convert.hex.rgb(hex);
-            if (exitType == "RGB") {
+            if (exitType === "RGB") {
                 return `rgb(${color[0]},${color[1]},${color[2]})`
-            } else if (exitType == "RGBA") {
+            } else if (exitType === "RGBA") {
                 return `rgba(${color[0]},${color[1]},${color[2]},1)`
             } else {
                 return hex
@@ -62,7 +62,10 @@ export default function Pallete(props) {
                 {/*bunch of color boxes*/}
                 {colorBox}
             </div>
-            <div className="Footer"></div>
+            <div className="Footer">
+            <span>{props.id.toUpperCase()}</span>
+            <span>{props.emoji}</span>
+            </div>
             {/* footer goes here             */}
         </div>
     )
