@@ -1,11 +1,14 @@
 import Palette from './Palette';
-import seedColors from './seedColors'
+import seedColors from './seedColors';
+import PalletesPage from './PalettesPage';
+import './App.css';
+
 
 
 function App() {
   return (
-    <div>
-      <Palette {...seedColors[3]}/>
+    <div className='main'>
+      <PalletesPage PaletteArrays={seedColors} />
     </div>
   );
 }
