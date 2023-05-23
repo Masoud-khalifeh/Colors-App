@@ -8,13 +8,13 @@ import chroma from "chroma-js";
 import './Palette.css';
 
 export default function Pallete(props) {
-    const ColorsArray = props.colors
+    const ColorsArray = props.colors;
+    const [Open,setOpen]=useState(false);
     const [Colors, SetColors] = useState(ColorsArray);
     const [SelectedColor, setSelectedColor] = useState("");
     const [TypeColor, setTypeColor] = useState("HEX");
     const [Level, setLevel] = useState("600");
-    const [Open,setOpen]=useState(false);
-    const colorBox = Colors.map(color => <ColorBox key={uuid()} backGround={convertColor(color.color, TypeColor, Level)} name={color.name} selected={updateSelectedColor} />);
+    const colorBox = Colors.map(color => <ColorBox key={uuid()} backGround={convertColor(color.color,TypeColor,Level)} name={color.name} selected={updateSelectedColor} />);
 
     function updateColor() {
         const newColors = ColorsArray.map(color => {
@@ -47,14 +47,14 @@ export default function Pallete(props) {
     function convertColor(hex, exitType, level) {
         if (hex !== "") {
             const color = convert.hex.rgb(hex);
-            if (exitType == "RGB") {
+            if (exitType === "RGB") {
                 return `rgb(${color[0]},${color[1]},${color[2]})`
-            } else if (exitType == "RGBA") {
+            } else if (exitType === "RGBA") {
                 return `rgba(${color[0]},${color[1]},${color[2]},1)`
             } else {
                 return hex
             }
-        } else {
+        }else{
             return ""
         }
 
@@ -68,7 +68,10 @@ export default function Pallete(props) {
                 {/*bunch of color boxes*/}
                 {colorBox}
             </div>
-            <div className="Footer"></div>
+            <div className="Footer">
+            <span>{props.id.toUpperCase()}</span>
+            <span>{props.emoji}</span>
+            </div>
             {/* footer goes here             */}
 
             <Snackbar
