@@ -4,6 +4,17 @@ import './PalettesPage.css';
 
 
 export default function PalettesPage(props) {
+
+    //check if we do not have 20 colors in palette, we add white colors until 20
+    function renderColors(palette) {
+        const colors = [];
+        for (let i = 0; i < 20; i++) {
+          const color = palette[i] ? palette[i].color : "white";
+          colors.push(<div className="mainPaletteTopColor" style={{ backgroundColor: color }} />);
+        }
+        return colors;
+      }
+      
     return (
 
 
@@ -21,9 +32,7 @@ export default function PalettesPage(props) {
                 {props.PaletteArrays.map(palette => (
                     <div className="mainPalette">
                         <div className="mainPaletteTop">
-                            {palette.colors.map(color => (
-                                <div className="mainPaletteTopColor" style={{ backgroundColor: `${color.color}` }}></div>
-                            ))}
+                            {renderColors(palette.colors)}
                         </div>
                         <div className="mainPaletteBottom">
                             <span>{palette.paletteName}</span>
