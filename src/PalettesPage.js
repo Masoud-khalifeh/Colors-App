@@ -1,5 +1,6 @@
 import React from "react";
 import './PalettesPage.css';
+import {v4 as uuid } from 'uuid';
 
 
 
@@ -10,7 +11,7 @@ export default function PalettesPage(props) {
         const colors = [];
         for (let i = 0; i < 20; i++) {
           const color = palette[i] ? palette[i].color : "white";
-          colors.push(<div className="mainPaletteTopColor" style={{ backgroundColor: color }} />);
+          colors.push(<div key={uuid()} className="mainPaletteTopColor" style={{ backgroundColor: color }} />);
         }
         return colors;
       }
@@ -30,7 +31,7 @@ export default function PalettesPage(props) {
             </div>
             <div className="PalettesPageBottom">
                 {props.PaletteArrays.map(palette => (
-                    <div className="mainPalette">
+                    <div key={uuid()} className="mainPalette">
                         <div className="mainPaletteTop">
                             {renderColors(palette.colors)}
                         </div>
