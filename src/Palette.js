@@ -8,14 +8,23 @@ import chroma from "chroma-js";
 import './Palette.css';
 
 export default function Pallete(props) {
-    const ColorsArray = props.colors;
-    const [Open,setOpen]=useState(false);
+    const ColorsArray = updateColorsNumber(props.colors);
+    const [Open, setOpen] = useState(false);
     const [Colors, SetColors] = useState(ColorsArray);
     const [SelectedColor, setSelectedColor] = useState("");
     const [TypeColor, setTypeColor] = useState("HEX");
     const [Level, setLevel] = useState("600");
-    
-    const colorBox = Colors.map(color => <ColorBox key={uuid()} backGround={convertColor(color.color,TypeColor,Level)} name={color.name} selected={updateSelectedColor} />);
+
+
+    function updateColorsNumber(colors) {
+        let newColors = colors;
+        while (newColors.length%5 !==0) {
+            newColors.push("white")
+        }
+        return newColors;
+    }
+
+    const colorBox = Colors.map(color => <ColorBox key={uuid()} backGround={convertColor(color.color, TypeColor, Level)} name={color.name} selected={updateSelectedColor} />);
 
     function updateColor() {
         const newColors = ColorsArray.map(color => {
@@ -34,9 +43,9 @@ export default function Pallete(props) {
         setTypeColor(e.target.value);
         setSelectedColor("");
         setOpen(true);
-        setTimeout(()=>{
+        setTimeout(() => {
             setOpen(false)
-        },3000)
+        }, 3000)
     };
     function handleChangeSlider(e) {
         setLevel(e.target.value);
@@ -55,7 +64,7 @@ export default function Pallete(props) {
             } else {
                 return hex
             }
-        }else{
+        } else {
             return ""
         }
 
@@ -70,8 +79,8 @@ export default function Pallete(props) {
                 {colorBox}
             </div>
             <div className="Footer">
-            <span>{props.paletteName}</span>
-            <span>{props.emoji}</span>
+                <span>{props.paletteName}</span>
+                <span>{props.emoji}</span>
             </div>
             {/* footer goes here             */}
 
