@@ -1,6 +1,7 @@
 import React from "react";
 import './PalettesPage.css';
-import {v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid';
+import { Link } from 'react-router-dom';
 
 
 
@@ -10,16 +11,13 @@ export default function PalettesPage(props) {
     function renderColors(palette) {
         const colors = [];
         for (let i = 0; i < 20; i++) {
-          const color = palette[i] ? palette[i].color : "white";
-          colors.push(<div key={uuid()} className="mainPaletteTopColor" style={{ backgroundColor: color }} />);
+            const color = palette[i] ? palette[i].color : "white";
+            colors.push(<div key={uuid()} className="mainPaletteTopColor" style={{ backgroundColor: color }} />);
         }
         return colors;
-      }
-      
+    }
+
     return (
-
-
-
         <div className="PalettesPage">
             <div className="PalettesPageTop">
                 <span>
@@ -31,7 +29,7 @@ export default function PalettesPage(props) {
             </div>
             <div className="PalettesPageBottom">
                 {props.PaletteArrays.map(palette => (
-                    <div key={uuid()} className="mainPalette">
+                    <Link key={uuid()} to={`palette/${palette.id}`} className="mainPalette">
                         <div className="mainPaletteTop">
                             {renderColors(palette.colors)}
                         </div>
@@ -39,10 +37,10 @@ export default function PalettesPage(props) {
                             <span>{palette.paletteName}</span>
                             <span>{palette.emoji}</span>
                         </div>
-                    </div>
+                    </Link>
+
                 ))}
             </div>
-
         </div>
     )
 } 

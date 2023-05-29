@@ -14,6 +14,7 @@ export default function Pallete(props) {
     const [SelectedColor, setSelectedColor] = useState("");
     const [TypeColor, setTypeColor] = useState("HEX");
     const [Level, setLevel] = useState("600");
+    
     const colorBox = Colors.map(color => <ColorBox key={uuid()} backGround={convertColor(color.color,TypeColor,Level)} name={color.name} selected={updateSelectedColor} />);
 
     function updateColor() {
@@ -69,7 +70,7 @@ export default function Pallete(props) {
                 {colorBox}
             </div>
             <div className="Footer">
-            <span>{props.id.toUpperCase()}</span>
+            <span>{props.paletteName}</span>
             <span>{props.emoji}</span>
             </div>
             {/* footer goes here             */}

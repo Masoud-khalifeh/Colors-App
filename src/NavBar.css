@@ -49,15 +49,4 @@
 }
 
 
-.Footer{
-    display: flex;
-    justify-content: right;
-}
-
-.Footer span{
-    margin:1rem;
-font-size: 1.3rem;    
-}
-
-
 

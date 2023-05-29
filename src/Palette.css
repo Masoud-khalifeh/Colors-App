@@ -1,10 +1,25 @@
 .Palette {
     height: 100vh;
+    background-color: white;
 }
 
 .PaletteColors {
     height: 90vh;
     display: flex;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
+
+
+
+.Footer{
+  float: right;
+  padding-top: 0.5rem;
+}
+
+.Footer span{
+    margin:1rem;
+font-size: 1.3rem;    
+}
+
 
